@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lumi Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      padding: 30px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: center;
+    }
+
+    th {
+      background: #6366f1;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f3f4f6;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h2>Lumi Salud</h2>
+  <div>Paciente: Juan Pérez</div>
+</header>
+
+<div class="container">
+  <h2>Historial de mediciones</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>SpO₂</th>
+        <th>BPM</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      
+      <tr>
+        <td>2026-04-28 08:00</td>
+        <td>98%</td>
+        <td>72 BPM</td>
+      </tr>
+
+      <tr>
+        <td>2026-04-28 12:00</td>
+        <td>97%</td>
+        <td>75 BPM</td>
+      </tr>
+
+      <tr>
+        <td>2026-04-28 16:00</td>
+        <td>96%</td>
+        <td>78 BPM</td>
+      </tr>
+
+      <tr>
+        <td>2026-04-29 08:00</td>
+        <td>99%</td>
+        <td>70 BPM</td>
+      </tr>
+
+      <tr>
+        <td>2026-04-29 12:00</td>
+        <td>95%</td>
+        <td>80 BPM</td>
+      </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+`
