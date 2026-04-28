@@ -140,6 +140,39 @@
 <footer>
   <p>© 2026 LUMI, Desarrollado por estudiantes del Tecnlogico superior de Ciudad Acuña</p>
 </footer>
+<!-- 🔥 MENSAJE DESDE ESP32 -->
+<h2 id="mensaje" style="margin:30px; color:#6366f1;">
+  Esperando mensaje del ESP32...
+</h2>
 
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CqTIh9zd0",
+  authDomain: "yassin-lerma.firebaseapp.com",
+  databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+  projectId: "yassin-lerma",
+  storageBucket: "yassin-lerma.firebasestorage.app",
+  messagingSenderId: "854070019092",
+  appId: "1:854070019092:web:11585b434dd224ff519301"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// 🔥 Leer mensaje en tiempo real
+const mensajeRef = ref(db, "mensaje");
+
+onValue(mensajeRef, (snapshot) => {
+  const data = snapshot.val();
+
+  if (data && data.texto) {
+    document.getElementById("mensaje").innerText = data.texto;
+  }
+});
+</script>
 </body>
 </html>
