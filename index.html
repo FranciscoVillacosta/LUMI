@@ -7,10 +7,10 @@
 <style>
   body{
     font-family: Arial;
-    background: #0f172a;
-    color: white;
-    text-align: center;
-    margin-top: 80px;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    margin-top:80px;
   }
 
   .card{
@@ -19,7 +19,7 @@
     margin:auto;
     padding:30px;
     border-radius:20px;
-    box-shadow:0 0 20px #000;
+    box-shadow:0 0 20px black;
   }
 
   .bpm{
@@ -32,7 +32,7 @@
 
 <body>
 
-<h1>📡 Monitor de Ritmo Cardíaco</h1>
+<h1>📡 Monitor BPM</h1>
 
 <div class="card">
   <p>Frecuencia Cardiaca</p>
@@ -40,23 +40,31 @@
   <p>latidos por minuto</p>
 </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script type="module">
+  // Firebase v9 modular
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-<script>
-  // 🔥 TU CONFIG DE FIREBASE
+  // TU CONFIG
   const firebaseConfig = {
-    databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com"
+    apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CQTIh9zd0",
+    authDomain: "yassin-lerma.firebaseapp.com",
+    databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+    projectId: "yassin-lerma",
+    storageBucket: "yassin-lerma.firebasestorage.app",
+    messagingSenderId: "854070019092",
+    appId: "1:854070019092:web:11585b434dd224ff519301",
+    measurementId: "G-K38ZF10HD8"
   };
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+  // Init Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-  // 🔁 leer en tiempo real
-  const bpmRef = db.ref("bpm");
+  // 🔥 Ruta donde ESP32 guarda el BPM
+  const bpmRef = ref(db, "bpm");
 
-  bpmRef.on("value", (snapshot) => {
+  onValue(bpmRef, (snapshot) => {
     const data = snapshot.val();
     document.getElementById("bpm").innerText = data;
   });
