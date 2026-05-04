@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Monitor BPM Firebase</title>
+<title>Historial BPM</title>
 
 <style>
   body{
@@ -10,64 +10,67 @@
     background:#0f172a;
     color:white;
     text-align:center;
-    margin-top:80px;
   }
 
-  .card{
-    background:#1e293b;
+  h1{ margin-top:30px; }
+
+  .list{
     width:300px;
     margin:auto;
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 0 20px black;
+    margin-top:20px;
   }
 
-  .bpm{
-    font-size:60px;
-    font-weight:bold;
-    color:#22c55e;
+  .item{
+    background:#1e293b;
+    margin:10px;
+    padding:10px;
+    border-radius:10px;
+    font-size:20px;
   }
 </style>
 </head>
 
 <body>
 
-<h1>📡 Monitor BPM</h1>
-
-<div class="card">
-  <p>Frecuencia Cardiaca</p>
-  <div class="bpm" id="bpm">--</div>
-  <p>latidos por minuto</p>
-</div>
+<h1>📊 Historial de BPM</h1>
+<div class="list" id="lista"></div>
 
 <script type="module">
-  // Firebase v9 modular
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-  // TU CONFIG
-  const firebaseConfig = {
-    apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CQTIh9zd0",
-    authDomain: "yassin-lerma.firebaseapp.com",
-    databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
-    projectId: "yassin-lerma",
-    storageBucket: "yassin-lerma.firebasestorage.app",
-    messagingSenderId: "854070019092",
-    appId: "1:854070019092:web:11585b434dd224ff519301",
-    measurementId: "G-K38ZF10HD8"
-  };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
 
-  // Init Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+const firebaseConfig = {
+  apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CQTIh9zd0",
+  authDomain: "yassin-lerma.firebaseapp.com",
+  databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+  projectId: "yassin-lerma",
+  storageBucket: "yassin-lerma.firebasestorage.app",
+  messagingSenderId: "854070019092",
+  appId: "1:854070019092:web:11585b434dd224ff519301"
+};
 
-  // 🔥 Ruta donde ESP32 guarda el BPM
-  const bpmRef = ref(db, "bpm");
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-  onValue(bpmRef, (snapshot) => {
-    const data = snapshot.val();
-    document.getElementById("bpm").innerText = data;
-  });
+const refLogs = ref(db, "bpmLogs");
+
+onValue(refLogs, (snapshot) => {
+  const data = snapshot.val();
+  const lista = document.getElementById("lista");
+
+  lista.innerHTML = "";
+
+  for (let id in data) {
+    let bpm = data[id].bpm;
+
+    let div = document.createElement("div");
+    div.className = "item";
+    div.innerText = "❤️ BPM: " + bpm;
+
+    lista.appendChild(div);
+  }
+});
 
 </script>
 
