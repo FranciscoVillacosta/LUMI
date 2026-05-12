@@ -3,166 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi - Compañía que se siente</title>
+    <title>Lumi - Dashboard de Salud</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient {
-            background: radial-gradient(circle at 70% 30%, #e0e7ff 0%, #ffffff 100%);
-        }
-        .purple-gradient {
-            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        /* Suaviza el scroll en móviles */
+        html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="text-gray-800">
 
-    <!-- Header -->
-    <header class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-        <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-white rounded-full shadow-sm border border-gray-100 flex items-center justify-center overflow-hidden">
-                <img src="img/LUM.png" alt="Lumi Logo" class="w-full h-full object-cover">
-            </div>
-            <span class="text-2xl font-bold tracking-tight text-slate-900">Lumi</span>
-        </div>
-        
-        <nav class="hidden md:flex gap-8 text-sm font-medium text-gray-600">
-            <a href="#" class="border-b-2 border-indigo-500 text-indigo-600">Inicio</a>
-            <a href="#" class="hover:text-indigo-600 transition">Sobre Lumi</a>
-            <a href="#" class="hover:text-indigo-600 transition">Funciones</a>
-            <a href="#" class="hover:text-indigo-600 transition">Beneficios</a>
-            <a href="#" class="hover:text-indigo-600 transition">Contacto</a>
-        </nav>
-        
-        <button class="bg-indigo-600 text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-indigo-700 transition shadow-md">
-        <a href="login.html"> Iniciar Sesion</a>  
-        </button>
-    </header>
-
-     <section class="hero-gradient pt-12 pb-32 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2">
-                 <h1 class="text-6xl font-bold leading-tight mb-6">
-                    Compañía que <br><span class="text-indigo-600">se siente.</span>
-                </h1>
-                <p class="text-gray-500 text-lg mb-8 max-w-md">
-                    Lumi está aquí para escucharte, entenderte y acompañarte en cada momento de tu día.
-                </p>
-                <div class="flex gap-4 mb-10">
-                    <button class="bg-indigo-600 text-white px-8 py-3 rounded-full font-semibold shadow-lg hover:bg-indigo-700 transition flex items-center gap-2">
-                        Conoce a Lumi <span>→</span>
-                    </button>
-                    <button class="border border-indigo-200 bg-white/50 px-8 py-3 rounded-full font-semibold hover:bg-white transition flex items-center gap-2">
-                        Ver video <span class="text-indigo-600">▶</span>
-                    </button>
+    <header class="bg-white/80 sticky top-0 z-50 border-b border-gray-100 px-4 md:px-6 py-4 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full flex items-center justify-center overflow-hidden">
+                    <img src="img/LUM.png" alt="Logo" class="w-full h-full object-cover">
                 </div>
-                <div class="flex items-center gap-3">
-                    <div class="flex -space-x-2">
-                        <div class="w-8 h-8 rounded-full bg-indigo-200 border-2 border-white"><img src="img/lo.jpg"></div>
-                        <div class="w-8 h-8 rounded-full bg-indigo-200 border-2 border-white"><img src="img/lo.jpg"></div>
-                        <div class="w-8 h-8 rounded-full bg-indigo-200 border-2 border-white"><img src="img/lo.jpg"></div>
-                        
-                    </div>
-                    <p class="text-xs text-gray-500">Más de 10,000 personas ya confían en Lumi ❤️</p>
-                </div>
+                <span class="text-xl font-bold tracking-tight text-indigo-600">Lumi</span>
             </div>
             
-            <div class="md:w-1/2 mt-12 md:mt-0 relative flex justify-center">
-                <div class="relative">
-                    <div class="absolute inset-0 bg-indigo-300 rounded-full blur-3xl opacity-20 animate-pulse"></div>
-                    <div class="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
-                        <img src="img/LUMI (1).png" alt="Lumi Robot" class="w-full h-auto object-contain drop-shadow-2xl">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="max-w-6xl mx-auto px-6 -mt-20 bg-white rounded-3xl shadow-xl p-12 text-center relative z-10">
-        <h2 class="text-3xl font-bold mb-2">Lumi está para ti</h2>
-        <p class="text-gray-400 mb-12">Más que tecnología, es compañía.</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div class="flex flex-col items-center">
-                <div class="w-14 h-14 bg-indigo-50 rounded-2xl mb-4 flex items-center justify-center text-2xl">💬</div>
-                <h3 class="font-bold mb-2">Conversación natural</h3>
-                <p class="text-sm text-gray-400">Habla con Lumi como lo harías con un amigo.</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="w-14 h-14 bg-purple-50 rounded-2xl mb-4 flex items-center justify-center text-2xl">💜</div>
-                <h3 class="font-bold mb-2">Te entiende</h3>
-                <p class="text-sm text-gray-400">Escucha, comprende y se adapta a ti.</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="w-14 h-14 bg-blue-50 rounded-2xl mb-4 flex items-center justify-center text-2xl">🕒</div>
-                <h3 class="font-bold mb-2">Siempre disponible</h3>
-                <p class="text-sm text-gray-400">Está contigo cuando lo necesitas, día y noche.</p>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="w-14 h-14 bg-slate-50 rounded-2xl mb-4 flex items-center justify-center text-2xl">🛡️</div>
-                <h3 class="font-bold mb-2">Privado y seguro</h3>
-                <p class="text-sm text-gray-400">Tus conversaciones están protegidas.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="max-w-7xl mx-auto px-6 py-24">
-        <div class="purple-gradient rounded-[3rem] p-12 text-white flex flex-col md:flex-row items-center justify-between shadow-2xl">
-            <div class="md:w-1/2">
-                <span class="text-5xl mb-4 block font-serif opacity-50">“</span>
-                <p class="text-2xl font-light leading-relaxed mb-6">
-                    A veces, lo que más necesitamos no es una respuesta, es sentir que <span class="font-bold">alguien está con nosotros.</span>
-                </p>
-            </div>
-            <div class="md:w-1/3 text-center md:text-right">
-                <p class="mb-8 text-lg opacity-90 font-medium">Descubre lo que Lumi puede hacer por ti.</p>
-                <button class="bg-white text-indigo-600 px-10 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">
-                    Empieza ahora →
+            <div class="flex items-center gap-4">
+                <button class="bg-indigo-50 text-indigo-600 p-2 rounded-lg md:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
                 </button>
+                <div class="hidden md:flex gap-6 text-sm font-medium text-gray-500">
+                    <a href="#" class="text-indigo-600">Panel</a>
+                    <a href="#" class="hover:text-indigo-600 transition">Historial</a>
+                    <a href="#" class="hover:text-indigo-600 transition">Perfil</a>
+                </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <footer class="bg-white pt-20 pb-10 border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div>
-                <div class="flex items-center gap-3 mb-6">
-                    <div class="w-10 h-10 bg-white rounded-full border border-gray-200 flex items-center justify-center overflow-hidden">
-                        <img src="img/LUM.png" alt="Lumi Logo" class="w-full h-full object-cover">
+    <main class="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-10">
+        <header class="mb-8">
+            <h1 class="text-2xl md:text-3xl font-bold">Hola, Franco</h1>
+            <p class="text-gray-500 text-sm">Tu salud en resumen para hoy.</p>
+        </header>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8">
+            <div class="bg-white p-5 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-xl text-indigo-500">🫀</div>
+                <div>
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Oxigenación</p>
+                    <p class="text-xl font-bold">97% <span class="text-xs font-normal text-green-500">Normal</span></p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+                <div class="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-xl text-pink-500">💓</div>
+                <div>
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Pulso</p>
+                    <p class="text-xl font-bold">72 <span class="text-xs font-normal">bpm</span></p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50 sm:col-span-2 lg:col-span-1">
+                <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center text-xl text-emerald-500">📅</div>
+                <div>
+                    <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Próxima Cita</p>
+                    <p class="text-lg font-bold leading-tight">12/04, 12:00 a.m.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 shadow-sm border border-gray-50">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+                
+                <div class="w-full overflow-hidden">
+                    <h2 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <span class="w-2 h-2 bg-indigo-500 rounded-full"></span> Tendencia Reciente
+                    </h2>
+                    
+                    <div class="mb-8 h-48 md:h-64">
+                        <canvas id="spO2Chart"></canvas>
                     </div>
-                    <span class="text-xl font-bold">Lumi</span>
+                    
+                    <div class="overflow-x-auto -mx-2">
+                        <table class="w-full text-left text-sm min-w-[300px]">
+                            <thead>
+                                <tr class="text-gray-400 border-b border-gray-50">
+                                    <th class="py-3 px-2 font-semibold uppercase tracking-wider">Fecha</th>
+                                    <th class="py-3 px-2 font-semibold uppercase tracking-wider">Hora</th>
+                                    <th class="py-3 px-2 font-semibold uppercase tracking-wider text-center">SpO2</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                <tr class="hover:bg-gray-50 transition"><td class="py-4 px-2 text-gray-600">01/11/2026</td><td class="py-4 px-2 text-gray-600">12:00</td><td class="py-4 px-2 text-center font-bold text-indigo-600">98%</td></tr>
+                                <tr class="hover:bg-gray-50 transition"><td class="py-4 px-2 text-gray-600">01/11/2026</td><td class="py-4 px-2 text-gray-600">14:30</td><td class="py-4 px-2 text-center font-bold text-indigo-600">97%</td></tr>
+                                <tr class="hover:bg-gray-50 transition"><td class="py-4 px-2 text-gray-600">01/11/2026</td><td class="py-4 px-2 text-gray-600">12:00</td><td class="py-4 px-2 text-center font-bold text-indigo-600">97%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <p class="text-sm text-gray-400 leading-relaxed max-w-xs">Compañía inteligente para un mundo que necesita más conexión humana a través de la IA.</p>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold uppercase tracking-widest mb-6 text-gray-900">Navegación</h4>
-                <ul class="text-sm text-gray-500 space-y-3">
-                    <li class="hover:text-indigo-600 cursor-pointer">Inicio</li>
-                    <li class="hover:text-indigo-600 cursor-pointer">Sobre Lumi</li>
-                    <li class="hover:text-indigo-600 cursor-pointer">Funciones</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold uppercase tracking-widest mb-6 text-gray-900">Legal</h4>
-                <ul class="text-sm text-gray-500 space-y-3">
-                    <li class="hover:text-indigo-600 cursor-pointer">Privacidad</li>
-                    <li class="hover:text-indigo-600 cursor-pointer">Términos</li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-xs font-bold uppercase tracking-widest mb-6 text-gray-900">Síguenos</h4>
-                <div class="flex gap-4">
-                    <div class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">i</div>
-                    <div class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">f</div>
-                    <div class="w-8 h-8 bg-gray-50 rounded-full flex items-center justify-center text-gray-400 hover:bg-indigo-50 hover:text-indigo-600 cursor-pointer transition">t</div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center text-xs text-gray-400 border-t border-gray-50 pt-10">
-            © 2024 Lumi. Todos los derechos reservados.
-        </div>
-    </footer>
 
+                <div class="space-y-10">
+                    <div>
+                        <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
+                             <span class="w-2 h-2 bg-pink-400 rounded-full"></span> Medicación Activa
+                        </h2>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                            <div class="flex items-center gap-4 bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-lg">💊</div>
+                                <div>
+                                    <p class="font-bold text-sm">Paracetamol</p>
+                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Cada 8 horas • 500mg</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4 bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+                                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-lg">💊</div>
+                                <div>
+                                    <p class="font-bold text-sm">Diclofenaco</p>
+                                    <p class="text-[10px] text-gray-400 uppercase font-bold tracking-tighter">Cada 12 horas • 100mg</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <h2 class="text-lg font-bold mb-5 flex items-center gap-2">
+                             <span class="w-2 h-2 bg-emerald-400 rounded-full"></span> Próxima Cita
+                        </h2>
+                        <div class="p-6 bg-indigo-600 rounded-[2rem] text-white shadow-xl shadow-indigo-100">
+                            <p class="text-indigo-200 text-[10px] mb-1 uppercase tracking-widest font-bold">Consulta de Seguimiento</p>
+                            <p class="text-xl font-bold mb-4">Dr. Angel Guadalupe</p>
+                            <div class="flex flex-wrap justify-between items-center gap-4 pt-4 border-t border-indigo-500/50">
+                                <span class="text-sm font-medium">12 de Abril, 2026</span>
+                                <button class="bg-white/20 hover:bg-white/30 px-5 py-2 rounded-full transition-all text-xs font-bold backdrop-blur-sm">Modificar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Configuración de la gráfica adaptada a móviles
+        const ctx = document.getElementById('spO2Chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['01', '05', '10', '15', '20', '25', '30'],
+                datasets: [{
+                    label: 'Nivel SpO2 (%)',
+                    data: [94, 96, 95, 98, 96, 97, 97],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.05)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    pointBackgroundColor: '#6366f1',
+                    pointBorderColor: '#ffffff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: { 
+                        min: 90, 
+                        max: 100, 
+                        grid: { color: '#f1f5f9' },
+                        ticks: { font: { size: 10 } }
+                    },
+                    x: { 
+                        grid: { display: false },
+                        ticks: { font: { size: 10 } }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>
