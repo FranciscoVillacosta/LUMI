@@ -1,92 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Monitor MAX30102</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body{
-      background:#111;
-      color:white;
-      font-family:Arial;
-      text-align:center;
-      margin-top:50px;
-    }
+<title>Monitor MAX30102</title>
 
-    .card{
-      background:#222;
-      width:300px;
-      margin:auto;
-      padding:20px;
-      border-radius:20px;
-    }
+<style>
 
-    h1{
-      color:#00ffcc;
-    }
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    margin-top:50px;
+}
 
-    .dato{
-      font-size:40px;
-      margin:20px;
-    }
-  </style>
+.card{
+    background:#222;
+    width:320px;
+    margin:auto;
+    padding:30px;
+    border-radius:20px;
+}
+
+h1{
+    color:#00ffcc;
+}
+
+.valor{
+    font-size:50px;
+    margin:20px;
+}
+
+</style>
+
 </head>
 <body>
 
 <div class="card">
 
-  <h1>MAX30102</h1>
+<h1>Monitor Oxígeno</h1>
 
-  <div class="dato">
-    ❤️ BPM:
-    <span id="bpm">0</span>
-  </div>
+<div>
+    BPM
+</div>
 
-  <div class="dato">
-    🩸 SpO2:
-    <span id="spo2">0</span>%
-  </div>
+<div class="valor" id="bpm">
+    0
+</div>
+
+<div>
+    SpO2
+</div>
+
+<div class="valor" id="spo2">
+    0
+</div>
 
 </div>
 
-<script>
+<script type="module">
 
-const firebaseURL =
-"https://yassin-lerma-default-rtdb.firebaseio.com/oxigeno.json";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-async function obtenerDatos(){
+import {
+    getDatabase,
+    ref,
+    onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-  try{
+const firebaseConfig = {
+  apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CqTIh9zd0",
+  authDomain: "yassin-lerma.firebaseapp.com",
+  databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+  projectId: "yassin-lerma",
+  storageBucket: "yassin-lerma.firebasestorage.app",
+  messagingSenderId: "854070019092",
+  appId: "1:854070019092:web:11585b434dd224ff519301",
+  measurementId: "G-K38ZF10HD8"
+};
 
-    const respuesta = await fetch(firebaseURL);
+const app = initializeApp(firebaseConfig);
 
-    const datos = await respuesta.json();
+const db = getDatabase(app);
 
-    if(!datos) return;
+const datosRef = ref(db, 'oxigeno');
 
-    // Obtener último registro
-    const claves = Object.keys(datos);
+onValue(datosRef, (snapshot) => {
 
-    const ultimaClave = claves[claves.length - 1];
+    const data = snapshot.val();
 
-    const ultimoDato = datos[ultimaClave];
+    console.log(data);
 
-    document.getElementById("bpm").innerText =
-      ultimoDato.bpm;
+    if(data){
 
-    document.getElementById("spo2").innerText =
-      ultimoDato.spo2;
+        document.getElementById("bpm").innerHTML = data.bpm;
 
-  }catch(error){
+        document.getElementById("spo2").innerHTML = data.spo2 + "%";
+    }
 
-    console.log(error);
-  }
-}
-
-// actualizar cada 2 segundos
-setInterval(obtenerDatos,2000);
-
-obtenerDatos();
+});
 
 </script>
 
