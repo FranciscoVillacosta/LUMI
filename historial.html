@@ -1,64 +1,8 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Monitor MAX30102</title>
-
-<style>
-
-body{
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-    margin-top:50px;
-}
-
-.card{
-    background:#222;
-    width:320px;
-    margin:auto;
-    padding:30px;
-    border-radius:20px;
-}
-
-h1{
-    color:#00ffcc;
-}
-
-.valor{
-    font-size:50px;
-    margin:20px;
-}
-
-</style>
-
-</head>
 <body>
 
-<div class="card">
+<h1>Historial Monitor Oxígeno</h1>
 
-<h1>Monitor Oxígeno</h1>
-
-<div>
-    BPM
-</div>
-
-<div class="valor" id="bpm">
-    0
-</div>
-
-<div>
-    SpO2
-</div>
-
-<div class="valor" id="spo2">
-    0
-</div>
-
-</div>
+<div id="lista"></div>
 
 <script type="module">
 
@@ -85,9 +29,13 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
+const lista = document.getElementById("lista");
+
 const datosRef = ref(db, 'oxigeno');
 
 onValue(datosRef, (snapshot) => {
+
+    lista.innerHTML = "";
 
     const data = snapshot.val();
 
@@ -95,9 +43,29 @@ onValue(datosRef, (snapshot) => {
 
     if(data){
 
-        document.getElementById("bpm").innerHTML = data.bpm;
+        Object.keys(data).reverse().forEach((id)=>{
 
-        document.getElementById("spo2").innerHTML = data.spo2 + "%";
+            const item = data[id];
+
+            lista.innerHTML += `
+
+            <div class="card">
+
+                ❤️ BPM:
+                <div class="valor">
+                    ${item.bpm}
+                </div>
+
+                🩸 SpO2:
+                <div class="valor">
+                    ${item.spo2}%
+                </div>
+
+            </div>
+
+            `;
+        });
+
     }
 
 });
@@ -105,4 +73,3 @@ onValue(datosRef, (snapshot) => {
 </script>
 
 </body>
-</html>
