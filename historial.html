@@ -1,8 +1,167 @@
-<body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<h1>Historial Monitor Oxígeno</h1>
+<title>Lumi - Dashboard de Salud</title>
 
-<div id="lista"></div>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f8fafc;
+}
+
+</style>
+
+</head>
+
+<body class="text-gray-800">
+
+<header class="bg-white/80 sticky top-0 z-50 border-b border-gray-100 px-6 py-4">
+
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+
+        <div class="flex items-center gap-2">
+
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold">
+                <img src="img/LUM.png">
+            </div>
+
+            <span class="text-xl font-bold tracking-tight">
+                Lumi
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+<main class="max-w-7xl mx-auto px-6 py-10">
+
+    <h1 class="text-3xl font-bold mb-8">
+        Hola, Franco - Tu Salud en Resumen
+    </h1>
+
+    <!-- TARJETAS -->
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+
+        <!-- SPO2 -->
+
+        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+
+            <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-2xl text-indigo-500">
+                🫀
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-400 font-medium">
+                    Oxigenación SpO2
+                </p>
+
+                <p class="text-2xl font-bold" id="spo2Actual">
+                    0%
+                </p>
+            </div>
+
+        </div>
+
+        <!-- BPM -->
+
+        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+
+            <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl text-pink-500">
+                💓
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-400 font-medium">
+                    Pulso
+                </p>
+
+                <p class="text-2xl font-bold" id="bpmActual">
+                    0 bpm
+                </p>
+            </div>
+
+        </div>
+
+        <!-- ESTADO -->
+
+        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+
+            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-emerald-500">
+                📡
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-400 font-medium">
+                    Estado
+                </p>
+
+                <p class="text-lg font-bold leading-tight text-green-500">
+                    Sensor conectado
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HISTORIAL -->
+
+    <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-sm border border-gray-50">
+
+        <h2 class="text-2xl font-bold mb-8">
+            Historial de Lecturas
+        </h2>
+
+        <div class="overflow-x-auto">
+
+            <table class="w-full text-left text-sm">
+
+                <thead>
+
+                    <tr class="text-gray-400 border-b border-gray-50">
+
+                        <th class="py-3 font-semibold uppercase tracking-wider">
+                            Fecha
+                        </th>
+
+                        <th class="py-3 font-semibold uppercase tracking-wider">
+                            Hora
+                        </th>
+
+                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
+                            BPM
+                        </th>
+
+                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
+                            SpO2
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaDatos" class="divide-y divide-gray-50">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</main>
 
 <script type="module">
 
@@ -15,13 +174,21 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CqTIh9zd0",
+
   authDomain: "yassin-lerma.firebaseapp.com",
+
   databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+
   projectId: "yassin-lerma",
+
   storageBucket: "yassin-lerma.firebasestorage.app",
+
   messagingSenderId: "854070019092",
+
   appId: "1:854070019092:web:11585b434dd224ff519301",
+
   measurementId: "G-K38ZF10HD8"
 };
 
@@ -29,43 +196,65 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-const lista = document.getElementById("lista");
-
 const datosRef = ref(db, 'oxigeno');
 
-onValue(datosRef, (snapshot) => {
+const tabla = document.getElementById("tablaDatos");
 
-    lista.innerHTML = "";
+onValue(datosRef, (snapshot)=>{
+
+    tabla.innerHTML = "";
 
     const data = snapshot.val();
 
-    console.log(data);
-
     if(data){
 
-        Object.keys(data).reverse().forEach((id)=>{
+        const keys = Object.keys(data).reverse();
 
-            const item = data[id];
+        keys.forEach((key,index)=>{
 
-            lista.innerHTML += `
+            const item = data[key];
 
-            <div class="card">
+            if(index == 0){
 
-                ❤️ BPM:
-                <div class="valor">
+                document.getElementById("bpmActual").innerHTML =
+                item.bpm + " bpm";
+
+                document.getElementById("spo2Actual").innerHTML =
+                item.spo2 + "%";
+            }
+
+            const fecha = new Date();
+
+            const fechaTexto =
+            fecha.toLocaleDateString();
+
+            const horaTexto =
+            fecha.toLocaleTimeString();
+
+            tabla.innerHTML += `
+
+            <tr>
+
+                <td class="py-4">
+                    ${fechaTexto}
+                </td>
+
+                <td class="py-4">
+                    ${horaTexto}
+                </td>
+
+                <td class="py-4 text-center font-bold text-pink-500">
                     ${item.bpm}
-                </div>
+                </td>
 
-                🩸 SpO2:
-                <div class="valor">
+                <td class="py-4 text-center font-bold text-indigo-600">
                     ${item.spo2}%
-                </div>
+                </td>
 
-            </div>
+            </tr>
 
             `;
         });
-
     }
 
 });
@@ -73,3 +262,4 @@ onValue(datosRef, (snapshot) => {
 </script>
 
 </body>
+</html>
