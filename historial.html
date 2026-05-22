@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lumi - Dashboard</title>
+<title>Lumi - Dashboard de Salud</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -25,48 +23,56 @@ body{
 
 <body class="text-gray-800">
 
-<!-- HEADER -->
+<header class="bg-white/80 sticky top-0 z-50 border-b border-gray-100 px-6 py-4">
 
-<header class="bg-white border-b border-gray-100 px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
 
-    <div class="max-w-7xl mx-auto flex items-center gap-3">
+        <div class="flex items-center gap-2">
 
-        <h1 class="text-2xl font-bold">
-            Lumi
-        </h1>
+            <div class="w-8 h-8 rounded-full overflow-hidden">
+                <img src="img/LUM.png">
+            </div>
+
+            <span class="text-xl font-bold tracking-tight">
+                Lumi
+            </span>
+
+        </div>
 
     </div>
 
 </header>
 
-<!-- CONTENIDO -->
-
 <main class="max-w-7xl mx-auto px-6 py-10">
 
     <h1 class="text-3xl font-bold mb-8">
-        Hola, Franco 👋
+        Hola, Franco - Tu Salud en Resumen
     </h1>
 
-    <!-- CARDS -->
+    <!-- TARJETAS -->
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
         <!-- SPO2 -->
 
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 flex items-center gap-4">
+        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
 
-            <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-2xl">
+            <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-2xl text-indigo-500">
                 🫀
             </div>
 
             <div>
 
-                <p class="text-gray-400 text-sm">
+                <p class="text-sm text-gray-400 font-medium">
                     Oxigenación
                 </p>
 
-                <p class="text-3xl font-bold text-indigo-600" id="spo2Actual">
+                <p class="text-2xl font-bold" id="spo2Actual">
                     0%
+                </p>
+
+                <p class="text-sm text-gray-400 mt-1">
+                    5/22/2026
                 </p>
 
             </div>
@@ -75,20 +81,24 @@ body{
 
         <!-- BPM -->
 
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 flex items-center gap-4">
+        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
 
-            <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl">
+            <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl text-pink-500">
                 💓
             </div>
 
             <div>
 
-                <p class="text-gray-400 text-sm">
+                <p class="text-sm text-gray-400 font-medium">
                     Ritmo Cardíaco
                 </p>
 
-                <p class="text-3xl font-bold text-pink-500" id="bpmActual">
+                <p class="text-2xl font-bold" id="bpmActual">
                     0 BPM
+                </p>
+
+                <p class="text-sm text-gray-400 mt-1">
+                    5/22/2026
                 </p>
 
             </div>
@@ -99,7 +109,7 @@ body{
 
     <!-- TABLA -->
 
-    <div class="bg-white rounded-[3rem] p-8 shadow-sm border border-gray-50">
+    <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-sm border border-gray-50">
 
         <h2 class="text-2xl font-bold mb-8">
             Historial de Lecturas
@@ -107,29 +117,29 @@ body{
 
         <div class="overflow-x-auto">
 
-            <table class="w-full text-left">
+            <table class="w-full text-left text-sm">
 
                 <thead>
 
-                    <tr class="border-b border-gray-100 text-gray-400 uppercase text-sm">
+                    <tr class="text-gray-400 border-b border-gray-50">
 
-                        <th class="py-4 text-center">
+                        <th class="py-3 font-semibold uppercase tracking-wider">
                             Fecha
                         </th>
 
-                        <th class="py-4 text-center">
-                            BPM
+                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
+                            SpO2
                         </th>
 
-                        <th class="py-4 text-center">
-                            SpO2
+                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
+                            BPM
                         </th>
 
                     </tr>
 
                 </thead>
 
-                <tbody id="tablaDatos">
+                <tbody id="tablaHistorial" class="divide-y divide-gray-50">
 
                 </tbody>
 
@@ -145,13 +155,18 @@ body{
 
 <script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
+
     getDatabase,
     ref,
     onValue
+
 }
+
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -176,76 +191,57 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-const datosRef = ref(db, 'oxigeno');
+const historialRef = ref(db, 'historial');
 
-const tabla = document.getElementById("tablaDatos");
-
-onValue(datosRef, (snapshot)=>{
-
-    tabla.innerHTML = "";
+onValue(historialRef, (snapshot) => {
 
     const data = snapshot.val();
 
-    if(data){
+    if(!data) return;
 
-        const keys = Object.keys(data).reverse();
+    const tabla = document.getElementById("tablaHistorial");
 
-        keys.forEach((key,index)=>{
+    tabla.innerHTML = "";
 
-            const item = data[key];
+    const lista = Object.values(data);
 
-            if(item.bpm && item.spo2){
+    lista.reverse();
 
-                // MOSTRAR ÚLTIMO DATO
+    // MOSTRAR ÚLTIMO DATO
 
-                if(index == 0){
+    const ultimo = lista[0];
 
-                    document.getElementById("bpmActual").innerHTML =
-                    item.bpm + " BPM";
+    document.getElementById("spo2Actual").innerHTML =
+    ultimo.spo2 + "%";
 
-                    document.getElementById("spo2Actual").innerHTML =
-                    item.spo2 + "%";
-                }
+    document.getElementById("bpmActual").innerHTML =
+    ultimo.bpm + " BPM";
 
-                // FECHA
+    // TABLA
 
-                let fechaTexto = "Sin fecha";
+    lista.forEach((item) => {
 
-                if(item.timestamp){
+        const fila = document.createElement("tr");
 
-                    const fecha =
-                    new Date(Number(item.timestamp));
+        fila.innerHTML = `
 
-                    fechaTexto =
-                    fecha.toLocaleDateString();
-                }
+            <td class="py-4">
+                5/22/2026
+            </td>
 
-                // TABLA
+            <td class="py-4 text-center font-bold text-indigo-600">
+                ${item.spo2}%
+            </td>
 
-                tabla.innerHTML += `
+            <td class="py-4 text-center font-bold text-pink-600">
+                ${item.bpm} BPM
+            </td>
 
-                <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+        `;
 
-                    <td class="py-4 text-center font-semibold">
-                        ${fechaTexto}
-                    </td>
+        tabla.appendChild(fila);
 
-                    <td class="py-4 text-center font-bold text-pink-500">
-                        ${item.bpm}
-                    </td>
-
-                    <td class="py-4 text-center font-bold text-indigo-600">
-                        ${item.spo2}%
-                    </td>
-
-                </tr>
-
-                `;
-            }
-
-        });
-
-    }
+    });
 
 });
 
