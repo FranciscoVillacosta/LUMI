@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lumi - Dashboard</title>
+<title>Lumi - Dashboard Salud</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
 
 body{
+    font-family: Arial, sans-serif;
     background:#f8fafc;
-    font-family:Arial;
 }
 
 </style>
@@ -20,7 +20,7 @@ body{
 </head>
 <body class="text-gray-800">
 
-<header class="bg-white shadow-sm px-6 py-4">
+<header class="bg-white shadow-sm p-5">
 
 <div class="max-w-6xl mx-auto flex items-center gap-3">
 
@@ -37,50 +37,58 @@ Lumi
 <main class="max-w-6xl mx-auto p-6">
 
 <h2 class="text-3xl font-bold mb-8">
-Monitor de Salud
+Hola Franco - Tu Salud en Resumen
 </h2>
 
 <!-- TARJETAS -->
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
-<div class="bg-white rounded-3xl p-6 shadow">
+<div class="bg-white p-6 rounded-3xl shadow">
 
-<div class="text-5xl mb-4">
+<div class="flex items-center gap-4">
+
+<div class="text-5xl">
 🫀
 </div>
+
+<div>
 
 <p class="text-gray-400">
 Oxigenación
 </p>
 
-<h2 id="spo2Actual" class="text-5xl font-bold text-indigo-600">
+<p id="spo2Actual" class="text-4xl font-bold text-indigo-600">
 0%
-</h2>
-
-<p id="fechaActual1" class="mt-3 text-gray-500">
---
 </p>
 
 </div>
 
-<div class="bg-white rounded-3xl p-6 shadow">
+</div>
 
-<div class="text-5xl mb-4">
+</div>
+
+<div class="bg-white p-6 rounded-3xl shadow">
+
+<div class="flex items-center gap-4">
+
+<div class="text-5xl">
 💓
 </div>
+
+<div>
 
 <p class="text-gray-400">
 Ritmo Cardíaco
 </p>
 
-<h2 id="bpmActual" class="text-5xl font-bold text-pink-600">
+<p id="bpmActual" class="text-4xl font-bold text-pink-600">
 0 BPM
-</h2>
-
-<p id="fechaActual2" class="mt-3 text-gray-500">
---
 </p>
+
+</div>
+
+</div>
 
 </div>
 
@@ -88,13 +96,13 @@ Ritmo Cardíaco
 
 <!-- TABLA -->
 
-<div class="bg-white rounded-3xl p-8 shadow">
+<div class="bg-white rounded-3xl shadow p-8">
 
 <h2 class="text-2xl font-bold mb-6">
 Historial de Lecturas
 </h2>
 
-<div class="overflow-auto">
+<div class="overflow-x-auto">
 
 <table class="w-full">
 
@@ -102,15 +110,15 @@ Historial de Lecturas
 
 <tr class="border-b text-gray-400">
 
-<th class="text-left py-3">
+<th class="text-left py-4">
 Fecha
 </th>
 
-<th class="text-left py-3">
+<th class="text-left py-4">
 BPM
 </th>
 
-<th class="text-left py-3">
+<th class="text-left py-4">
 SpO2
 </th>
 
@@ -168,29 +176,19 @@ onValue(datosRef, (snapshot) => {
 
 const data = snapshot.val();
 
-if(!data) return;
-
 const tabla = document.getElementById("tablaDatos");
 
 tabla.innerHTML = "";
 
+if(data){
+
 const registros = Object.values(data).reverse();
 
-const ultimo = registros[0];
-
-document.getElementById("spo2Actual").innerHTML =
-ultimo.spo2 + "%";
-
-document.getElementById("bpmActual").innerHTML =
-ultimo.bpm + " BPM";
-
-document.getElementById("fechaActual1").innerHTML =
-ultimo.fecha;
-
-document.getElementById("fechaActual2").innerHTML =
-ultimo.fecha;
-
 registros.forEach(item => {
+
+if(!item.bpm || !item.spo2 || !item.fecha){
+return;
+}
 
 tabla.innerHTML += `
 
@@ -213,6 +211,20 @@ ${item.spo2}%
 `;
 
 });
+
+const ultimo = registros.find(item => item.bpm && item.spo2);
+
+if(ultimo){
+
+document.getElementById("bpmActual").innerHTML =
+ultimo.bpm + " BPM";
+
+document.getElementById("spo2Actual").innerHTML =
+ultimo.spo2 + "%";
+
+}
+
+}
 
 });
 
