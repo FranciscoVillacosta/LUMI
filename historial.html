@@ -31,8 +31,6 @@ body{
 
     <div class="max-w-7xl mx-auto flex items-center gap-3">
 
-        <img src="img/LUM.png" class="w-10">
-
         <h1 class="text-2xl font-bold">
             Lumi
         </h1>
@@ -51,7 +49,7 @@ body{
 
     <!-- CARDS -->
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
         <!-- SPO2 -->
 
@@ -97,28 +95,6 @@ body{
 
         </div>
 
-        <!-- SENSOR -->
-
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm border border-gray-50 flex items-center gap-4">
-
-            <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl">
-                📡
-            </div>
-
-            <div>
-
-                <p class="text-gray-400 text-sm">
-                    Estado
-                </p>
-
-                <p class="text-xl font-bold text-green-500">
-                    Sensor Activo
-                </p>
-
-            </div>
-
-        </div>
-
     </div>
 
     <!-- TABLA -->
@@ -136,10 +112,6 @@ body{
                 <thead>
 
                     <tr class="border-b border-gray-100 text-gray-400 uppercase text-sm">
-
-                        <th class="py-4">
-                            Sensor
-                        </th>
 
                         <th class="py-4 text-center">
                             BPM
@@ -218,39 +190,42 @@ onValue(datosRef, (snapshot)=>{
 
             const item = data[key];
 
-            // MOSTRAR ÚLTIMO DATO ARRIBA
+            // VALIDAR DATOS
 
-            if(index == 0){
+            if(item.bpm && item.spo2){
 
-                document.getElementById("bpmActual").innerHTML =
-                item.bpm + " BPM";
+                // MOSTRAR EL MÁS RECIENTE
 
-                document.getElementById("spo2Actual").innerHTML =
-                item.spo2 + "%";
+                if(index == 0){
+
+                    document.getElementById("bpmActual").innerHTML =
+                    item.bpm + " BPM";
+
+                    document.getElementById("spo2Actual").innerHTML =
+                    item.spo2 + "%";
+                }
+
+                // TABLA
+
+                tabla.innerHTML += `
+
+                <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+
+                    <td class="py-4 text-center font-bold text-pink-500">
+                        ${item.bpm}
+                    </td>
+
+                    <td class="py-4 text-center font-bold text-indigo-600">
+                        ${item.spo2}%
+                    </td>
+
+                </tr>
+
+                `;
             }
 
-            // AGREGAR A TABLA
-
-            tabla.innerHTML += `
-
-            <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
-
-                <td class="py-4 font-semibold">
-                    MAX30102
-                </td>
-
-                <td class="py-4 text-center font-bold text-pink-500">
-                    ${item.bpm}
-                </td>
-
-                <td class="py-4 text-center font-bold text-indigo-600">
-                    ${item.spo2}%
-                </td>
-
-            </tr>
-
-            `;
         });
+
     }
 
 });
