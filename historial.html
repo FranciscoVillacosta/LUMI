@@ -118,35 +118,54 @@
         </div>
     </main>
 
-    <script>
-        const ctx = document.getElementById('spO2Chart').getContext('2d');
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['01', '05', '10', '15', '20', '25', '30'],
-                datasets: [{
-                    label: 'Nivel SpO2 (%)',
-                    data: [91, 97, 94, 99, 93, 98, 96],
-                    borderColor: '#6366f1',
-                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                    fill: true,
-                    tension: 0.4,
-                    pointRadius: 6,
-                    pointBackgroundColor: '#6366f1',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    y: { min: 85, max: 100, grid: { display: false } },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
-    </script>
+  <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+// ===== CONFIG FIREBASE =====
+const firebaseConfig = {
+    databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com/"
+};
+
+// ===== INICIAR FIREBASE =====
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ===== REFERENCIA =====
+const datosRef = ref(db, "mediciones");
+
+// ===== TABLA =====
+const tbody = document.querySelector("tbody");
+
+// ===== LEER DATOS =====
+onValue(datosRef, (snapshot) => {
+
+    tbody.innerHTML = "";
+
+    snapshot.forEach((childSnapshot) => {
+
+        const data = childSnapshot.val();
+
+        const fila = `
+        <tr>
+            <td class="py-4">${data.fecha}</td>
+            <td class="py-4">${data.hora}</td>
+            <td class="py-4 text-center font-bold text-indigo-600">
+                ${data.spo2}
+            </td>
+        </tr>
+        `;
+
+        tbody.innerHTML += fila;
+    });
+});
+
+</script>
 </body>
 </html>
