@@ -1,171 +1,94 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi - Dashboard de Salud</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Monitor MAX30102</title>
+
+  <style>
+    body{
+      background:#111;
+      color:white;
+      font-family:Arial;
+      text-align:center;
+      margin-top:50px;
+    }
+
+    .card{
+      background:#222;
+      width:300px;
+      margin:auto;
+      padding:20px;
+      border-radius:20px;
+    }
+
+    h1{
+      color:#00ffcc;
+    }
+
+    .dato{
+      font-size:40px;
+      margin:20px;
+    }
+  </style>
 </head>
-<body class="text-gray-800">
+<body>
 
-    <header class="bg-white/80 sticky top-0 z-50 border-b border-gray-100 px-6 py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8  rounded-full flex items-center justify-center text-white font-bold"><img src="LUM.png"></div>
-                <span class="text-xl font-bold tracking-tight">Lumi</span>
-            </div>
-            
-            
-        </div>
-    </header>
+<div class="card">
 
-    <main class="max-w-7xl mx-auto px-6 py-10">
-        <h1 class="text-3xl font-bold mb-8">Hola, Franco - Tu Salud en Resumen</h1>
+  <h1>MAX30102</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
-                <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-2xl text-indigo-500">🫀</div>
-                <div>
-                    <p class="text-sm text-gray-400 font-medium">Oxigenación SpO2</p>
-                    <p class="text-2xl font-bold">97%</p>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
-                <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl text-pink-500">💓</div>
-                <div>
-                    <p class="text-sm text-gray-400 font-medium">Pulso</p>
-                    <p class="text-2xl font-bold">72 bpm</p>
-                </div>
-            </div>
-            <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
-                <div class="w-14 h-14 bg-emerald-50 rounded-2xl flex items-center justify-center text-2xl text-emerald-500">📅</div>
-                <div>
-                    <p class="text-sm text-gray-400 font-medium">Próxima Cita</p>
-                    <p class="text-lg font-bold leading-tight">12/04, 12:00 a.m.</p>
-                </div>
-            </div>
-        </div>
+  <div class="dato">
+    ❤️ BPM:
+    <span id="bpm">0</span>
+  </div>
 
-        <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-sm border border-gray-50">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                
-                <div>
-                   
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left text-sm">
-                            <thead>
-                                <tr class="text-gray-400 border-b border-gray-50">
-                                    <th class="py-3 font-semibold uppercase tracking-wider">Fecha</th>
-                                    <th class="py-3 font-semibold uppercase tracking-wider">Hora</th>
-                                    <th class="py-3 font-semibold uppercase tracking-wider text-center">SpO2 (%)</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-50">
-                                <tr><td class="py-4">01/11/2026</td><td class="py-4">12:00</td><td class="py-4 text-center font-bold text-indigo-600">98</td></tr>
-                                <tr><td class="py-4">01/11/2026</td><td class="py-4">14:30</td><td class="py-4 text-center font-bold text-indigo-600">97</td></tr>
-                                <tr><td class="py-4">01/11/2026</td><td class="py-4">12:00</td><td class="py-4 text-center font-bold text-indigo-600">97</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+  <div class="dato">
+    🩸 SpO2:
+    <span id="spo2">0</span>%
+  </div>
 
-                <div class="space-y-12">
-                    <div>
-                        <h2 class="text-xl font-bold mb-6">Medicación Activa </h2>
-                        <div class="space-y-4">
-                            <div class="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl">
-                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">💊</div>
-                                <div>
-                                    <p class="font-bold">Paracetamol</p>
-                                    <p class="text-xs text-gray-400">1x día</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-4 bg-gray-50 p-4 rounded-2xl">
-                                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm">💊</div>
-                                <div>
-                                    <p class="font-bold">Diclofenaco</p>
-                                    <p class="text-xs text-gray-400">2x día</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+</div>
 
-                    <div>
-                        <h2 class="text-xl font-bold mb-6">Próxima Cita</h2>
-                        <div class="p-6 bg-indigo-600 rounded-[2rem] text-white">
-                            <p class="text-indigo-100 text-sm mb-1 uppercase tracking-widest font-bold">Control General</p>
-                            <p class="text-xl font-bold mb-4">Dr. Angel Guadalupe</p>
-                            <div class="flex justify-between items-center text-sm">
-                                <span>12 de Abril, 2026</span>
-                                <button class="bg-white/20 hover:bg-white/30 px-4 py-2 rounded-full transition font-bold">Modificar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<script>
 
-            </div>
-        </div>
-    </main>
+const firebaseURL =
+"https://yassin-lerma-default-rtdb.firebaseio.com/oxigeno.json";
 
-  <script type="module">
+async function obtenerDatos(){
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  try{
 
-import {
-    getDatabase,
-    ref,
-    onValue
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    const respuesta = await fetch(firebaseURL);
 
-// ===== CONFIG FIREBASE =====
-const firebaseConfig = {
-    databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com/"
-};
+    const datos = await respuesta.json();
 
-// ===== INICIAR FIREBASE =====
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+    if(!datos) return;
 
-// ===== REFERENCIA =====
-const datosRef = ref(db, "mediciones");
+    // Obtener último registro
+    const claves = Object.keys(datos);
 
-// ===== TABLA =====
-const tbody = document.querySelector("tbody");
+    const ultimaClave = claves[claves.length - 1];
 
-// ===== LEER DATOS =====
-onValue(datosRef, (snapshot) => {
+    const ultimoDato = datos[ultimaClave];
 
-    tbody.innerHTML = "";
+    document.getElementById("bpm").innerText =
+      ultimoDato.bpm;
 
-    snapshot.forEach((childSnapshot) => {
+    document.getElementById("spo2").innerText =
+      ultimoDato.spo2;
 
-        const data = childSnapshot.val();
+  }catch(error){
 
-        const fila = `
-        <tr>
-            <td class="py-4">${data.fecha}</td>
-            <td class="py-4">${data.hora}</td>
-            <td class="py-4 text-center font-bold text-indigo-600">
-                ${data.spo2}
-            </td>
-        </tr>
-        `;
+    console.log(error);
+  }
+}
 
-        tbody.innerHTML += fila;
-    });
-});
+// actualizar cada 2 segundos
+setInterval(obtenerDatos,2000);
+
+obtenerDatos();
 
 </script>
+
 </body>
 </html>
