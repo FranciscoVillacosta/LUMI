@@ -4,186 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lumi - Dashboard de Salud</title>
+<title>Lumi - Dashboard</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-    font-family:'Inter',sans-serif;
     background:#f8fafc;
+    font-family:Arial;
 }
 
 </style>
 
 </head>
-
 <body class="text-gray-800">
 
-<header class="bg-white/80 sticky top-0 z-50 border-b border-gray-100 px-6 py-4">
+<header class="bg-white shadow-sm px-6 py-4">
 
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="max-w-6xl mx-auto flex items-center gap-3">
 
-        <div class="flex items-center gap-2">
+<img src="img/LUM.png" width="45">
 
-            <div class="w-8 h-8 rounded-full overflow-hidden">
-                <img src="img/LUM.png">
-            </div>
+<h1 class="text-2xl font-bold">
+Lumi
+</h1>
 
-            <span class="text-xl font-bold tracking-tight">
-                Lumi
-            </span>
-
-        </div>
-
-    </div>
+</div>
 
 </header>
 
-<main class="max-w-7xl mx-auto px-6 py-10">
+<main class="max-w-6xl mx-auto p-6">
 
-    <h1 class="text-3xl font-bold mb-8">
-        Hola, Franco - Tu Salud en Resumen
-    </h1>
+<h2 class="text-3xl font-bold mb-8">
+Monitor de Salud
+</h2>
 
-    <!-- TARJETAS -->
+<!-- TARJETAS -->
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
 
-        <!-- SPO2 -->
+<div class="bg-white rounded-3xl p-6 shadow">
 
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+<div class="text-5xl mb-4">
+🫀
+</div>
 
-            <div class="w-14 h-14 bg-indigo-50 rounded-2xl flex items-center justify-center text-2xl text-indigo-500">
-                🫀
-            </div>
+<p class="text-gray-400">
+Oxigenación
+</p>
 
-            <div>
+<h2 id="spo2Actual" class="text-5xl font-bold text-indigo-600">
+0%
+</h2>
 
-                <p class="text-sm text-gray-400 font-medium">
-                    Oxigenación
-                </p>
+<p id="fechaActual1" class="mt-3 text-gray-500">
+--
+</p>
 
-                <p class="text-2xl font-bold" id="spo2Actual">
-                    0%
-                </p>
+</div>
 
-                <p class="text-sm text-gray-400 mt-1">
-                    5/22/2026
-                </p>
+<div class="bg-white rounded-3xl p-6 shadow">
 
-            </div>
+<div class="text-5xl mb-4">
+💓
+</div>
 
-        </div>
+<p class="text-gray-400">
+Ritmo Cardíaco
+</p>
 
-        <!-- BPM -->
+<h2 id="bpmActual" class="text-5xl font-bold text-pink-600">
+0 BPM
+</h2>
 
-        <div class="bg-white p-6 rounded-[2rem] shadow-sm flex items-center gap-4 border border-gray-50">
+<p id="fechaActual2" class="mt-3 text-gray-500">
+--
+</p>
 
-            <div class="w-14 h-14 bg-pink-50 rounded-2xl flex items-center justify-center text-2xl text-pink-500">
-                💓
-            </div>
+</div>
 
-            <div>
+</div>
 
-                <p class="text-sm text-gray-400 font-medium">
-                    Ritmo Cardíaco
-                </p>
+<!-- TABLA -->
 
-                <p class="text-2xl font-bold" id="bpmActual">
-                    0 BPM
-                </p>
+<div class="bg-white rounded-3xl p-8 shadow">
 
-                <p class="text-sm text-gray-400 mt-1">
-                    5/22/2026
-                </p>
+<h2 class="text-2xl font-bold mb-6">
+Historial de Lecturas
+</h2>
 
-            </div>
+<div class="overflow-auto">
 
-        </div>
+<table class="w-full">
 
-    </div>
+<thead>
 
-    <!-- TABLA -->
+<tr class="border-b text-gray-400">
 
-    <div class="bg-white rounded-[3rem] p-8 md:p-12 shadow-sm border border-gray-50">
+<th class="text-left py-3">
+Fecha
+</th>
 
-        <h2 class="text-2xl font-bold mb-8">
-            Historial de Lecturas
-        </h2>
+<th class="text-left py-3">
+BPM
+</th>
 
-        <div class="overflow-x-auto">
+<th class="text-left py-3">
+SpO2
+</th>
 
-            <table class="w-full text-left text-sm">
+</tr>
 
-                <thead>
+</thead>
 
-                    <tr class="text-gray-400 border-b border-gray-50">
+<tbody id="tablaDatos">
 
-                        <th class="py-3 font-semibold uppercase tracking-wider">
-                            Fecha
-                        </th>
+</tbody>
 
-                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
-                            SpO2
-                        </th>
+</table>
 
-                        <th class="py-3 font-semibold uppercase tracking-wider text-center">
-                            BPM
-                        </th>
+</div>
 
-                    </tr>
-
-                </thead>
-
-                <tbody id="tablaHistorial" class="divide-y divide-gray-50">
-
-                </tbody>
-
-            </table>
-
-        </div>
-
-    </div>
+</div>
 
 </main>
 
-<!-- FIREBASE -->
-
 <script type="module">
 
-import { initializeApp }
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
-
-    getDatabase,
-    ref,
-    onValue
-
-}
-
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+getDatabase,
+ref,
+onValue
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
 
-  apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CqTIh9zd0",
+apiKey: "AIzaSyCqm-ifnDLIYLlZBafR-wIO87CqTIh9zd0",
 
-  authDomain: "yassin-lerma.firebaseapp.com",
+authDomain: "yassin-lerma.firebaseapp.com",
 
-  databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
+databaseURL: "https://yassin-lerma-default-rtdb.firebaseio.com",
 
-  projectId: "yassin-lerma",
+projectId: "yassin-lerma",
 
-  storageBucket: "yassin-lerma.firebasestorage.app",
+storageBucket: "yassin-lerma.firebasestorage.app",
 
-  messagingSenderId: "854070019092",
+messagingSenderId: "854070019092",
 
-  appId: "1:854070019092:web:11585b434dd224ff519301"
+appId: "1:854070019092:web:11585b434dd224ff519301"
 
 };
 
@@ -191,57 +162,57 @@ const app = initializeApp(firebaseConfig);
 
 const db = getDatabase(app);
 
-const historialRef = ref(db, 'historial');
+const datosRef = ref(db, 'oxigeno');
 
-onValue(historialRef, (snapshot) => {
+onValue(datosRef, (snapshot) => {
 
-    const data = snapshot.val();
+const data = snapshot.val();
 
-    if(!data) return;
+if(!data) return;
 
-    const tabla = document.getElementById("tablaHistorial");
+const tabla = document.getElementById("tablaDatos");
 
-    tabla.innerHTML = "";
+tabla.innerHTML = "";
 
-    const lista = Object.values(data);
+const registros = Object.values(data).reverse();
 
-    lista.reverse();
+const ultimo = registros[0];
 
-    // MOSTRAR ÚLTIMO DATO
+document.getElementById("spo2Actual").innerHTML =
+ultimo.spo2 + "%";
 
-    const ultimo = lista[0];
+document.getElementById("bpmActual").innerHTML =
+ultimo.bpm + " BPM";
 
-    document.getElementById("spo2Actual").innerHTML =
-    ultimo.spo2 + "%";
+document.getElementById("fechaActual1").innerHTML =
+ultimo.fecha;
 
-    document.getElementById("bpmActual").innerHTML =
-    ultimo.bpm + " BPM";
+document.getElementById("fechaActual2").innerHTML =
+ultimo.fecha;
 
-    // TABLA
+registros.forEach(item => {
 
-    lista.forEach((item) => {
+tabla.innerHTML += `
 
-        const fila = document.createElement("tr");
+<tr class="border-b">
 
-        fila.innerHTML = `
+<td class="py-4">
+${item.fecha}
+</td>
 
-            <td class="py-4">
-                5/22/2026
-            </td>
+<td class="py-4 font-bold text-pink-600">
+${item.bpm}
+</td>
 
-            <td class="py-4 text-center font-bold text-indigo-600">
-                ${item.spo2}%
-            </td>
+<td class="py-4 font-bold text-indigo-600">
+${item.spo2}%
+</td>
 
-            <td class="py-4 text-center font-bold text-pink-600">
-                ${item.bpm} BPM
-            </td>
+</tr>
 
-        `;
+`;
 
-        tabla.appendChild(fila);
-
-    });
+});
 
 });
 
