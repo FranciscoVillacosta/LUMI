@@ -4,69 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumi - Iniciar Sesión</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #ffffff 100%);
-        }
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #ffffff 100%); }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 2rem; }
+        .form-control { padding: 1rem 1.25rem; border-radius: 1rem; border-color: #f1f3f5; }
+        .form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25); }
+        .btn-indigo { background-color: #4f46e5; color: white; padding: 1rem; border-radius: 1rem; font-weight: 700; border: none; }
+        .btn-indigo:hover { background-color: #4338ca; color: white; }
     </style>
 </head>
-<body class="hero-gradient min-h-screen flex items-center justify-center p-6">
+<body class="min-vh-screen d-flex align-items-center justify-content-center p-4">
 
-    <div class="max-w-md w-full">
-        <div class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Bienvenido</h1>
-               <p class="text-gray-500 mt-3 text-lg">Ingresa a tu cuenta para continuar</p>
+    <div class="w-100" style="max-width: 430px;">
+        <div class="text-center mb-4">
+            <h1 class="fw-bold text-dark display-6 mb-2">Bienvenido</h1>
+            <p class="text-muted">Ingresa a tu cuenta para continuar</p>
         </div>
 
-         <div class="glass rounded-[2.5rem] p-10 shadow-2xl">
-            <form action="#" class="space-y-6">
+        <div class="glass p-4 p-sm-5 shadow-lg">
+            <form id="login-form" class="d-flex flex-column gap-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2 ml-1">Correo electrónico</label>
-                    <input type="email" placeholder="tu@email.com" 
-                           class="w-full px-5 py-4 rounded-2xl bg-white border border-gray-100 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all placeholder:text-gray-300">
+                    <label class="form-label small fw-semibold text-secondary ms-1 mb-2">Correo electrónico</label>
+                    <input type="email" id="login-email" class="form-control" placeholder="tu@email.com" required>
                 </div>
 
                 <div>
-                    <div class="flex justify-between mb-2 ml-1">
-                        <label class="text-sm font-semibold text-gray-700">Contraseña</label>
-                        <a href="#" class="text-xs text-indigo-600 font-medium hover:underline">¿Olvidaste tu contraseña?</a>
-                    </div>
-                    <input type="password" placeholder="••••••••" 
-                           class="w-full px-5 py-4 rounded-2xl bg-white border border-gray-100 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 outline-none transition-all placeholder:text-gray-300">
+                    <label class="form-label small fw-semibold text-secondary ms-1 mb-2">Contraseña</label>
+                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
                 </div>
 
-                <div class="flex items-center gap-2 ml-1">
-                    <input type="checkbox" id="remember" class="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                    <label for="remember" class="text-sm text-gray-500 cursor-pointer">Recordarme en este equipo</label>
-                </div>
+                <div id="login-error" class="alert alert-danger p-2 small text-center d-none"></div>
 
-                <button class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 hover:scale-[1.01] active:scale-95 transition-all text-lg">
-                    <a href="historial.html">Entrar</a>
-                </button>
+                <button type="submit" class="btn btn-indigo w-100 shadow">Entrar</button>
             </form>
-
-            <div class="mt-8 pt-8 border-t border-gray-200/50 text-center">
-                <p class="text-sm text-gray-500">
-                    ¿No tienes una cuenta? 
-                    <a href="#" class="text-indigo-600 font-bold hover:underline ml-1">Regístrate ahora</a>
-                </p>
-            </div>
-        </div>
-
-     <div class="mt-10 flex justify-center gap-8 text-xs text-gray-400 font-semibold uppercase tracking-widest">
-            <a href="#" class="hover:text-indigo-500 transition-colors">Soporte</a>
-            <a href="#" class="hover:text-indigo-500 transition-colors">Privacidad</a>
-            <a href="#" class="hover:text-indigo-500 transition-colors">Legal</a>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>
