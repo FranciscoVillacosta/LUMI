@@ -3,42 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi - Iniciar Sesión</title>
+    <title>Lumi - Acceso</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #ffffff 100%); }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 2rem; }
-        .form-control { padding: 1rem 1.25rem; border-radius: 1rem; border-color: #f1f3f5; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #ffffff 100%); 
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            border-radius: 2rem; 
+        }
+        .form-control { padding: 0.8rem 1.25rem; border-radius: 1rem; border-color: #f1f3f5; }
         .form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25); }
-        .btn-indigo { background-color: #4f46e5; color: white; padding: 1rem; border-radius: 1rem; font-weight: 700; border: none; }
+        .btn-indigo { background-color: #4f46e5; color: white; padding: 0.8rem; border-radius: 1rem; font-weight: 700; border: none; }
         .btn-indigo:hover { background-color: #4338ca; color: white; }
+        .nav-pills .nav-link.active { background-color: #4f46e5 !important; }
+        .nav-link { color: #4f46e5; font-weight: 600; }
     </style>
 </head>
 <body class="min-vh-screen d-flex align-items-center justify-content-center p-4">
 
-    <div class="w-100" style="max-width: 430px;">
-        <div class="text-center mb-4">
-            <h1 class="fw-bold text-dark display-6 mb-2">Bienvenido</h1>
-            <p class="text-muted">Ingresa a tu cuenta para continuar</p>
-        </div>
+    <div class="w-100" style="max-width: 450px;">
+        
+        <ul class="nav nav-pills nav-justified mb-4 bg-white p-2 rounded-pill shadow-sm" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active rounded-pill" id="tab-login" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab">Entrar</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link rounded-pill" id="tab-registro" data-bs-toggle="pill" data-bs-target="#pills-registro" type="button" role="tab">Registrarse</button>
+            </li>
+        </ul>
 
         <div class="glass p-4 p-sm-5 shadow-lg">
-            <form id="login-form" class="d-flex flex-column gap-4">
-                <div>
-                    <label class="form-label small fw-semibold text-secondary ms-1 mb-2">Correo electrónico</label>
-                    <input type="email" id="login-email" class="form-control" placeholder="tu@email.com" required>
+            <div class="tab-content" id="pills-tabContent">
+                
+                <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-dark">Iniciar Sesión</h2>
+                        <p class="text-muted small">Ingresa a tu cuenta de Lumi</p>
+                    </div>
+                    <form id="login-form" class="d-flex flex-column gap-3">
+                        <div>
+                            <label class="form-label small fw-semibold text-secondary ms-1">Correo electrónico</label>
+                            <input type="email" id="login-email" class="form-control" placeholder="tu@email.com" required>
+                        </div>
+                        <div>
+                            <label class="form-label small fw-semibold text-secondary ms-1">Contraseña</label>
+                            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                        </div>
+                        <div id="login-error" class="alert alert-danger p-2 small text-center d-none"></div>
+                        <button type="submit" class="btn btn-indigo w-100 shadow mt-2">Entrar</button>
+                    </form>
                 </div>
 
-                <div>
-                    <label class="form-label small fw-semibold text-secondary ms-1 mb-2">Contraseña</label>
-                    <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+                <div class="tab-pane fade" id="pills-registro" role="tabpanel">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-dark">Crear Cuenta</h2>
+                        <p class="text-muted small">Regístrate en la base de datos</p>
+                    </div>
+                    <form id="register-form" class="d-flex flex-column gap-3">
+                        <div>
+                            <label class="form-label small fw-semibold text-secondary ms-1">Nombre Completo</label>
+                            <input type="text" id="reg-name" class="form-control" placeholder="Ej. Franco" required>
+                        </div>
+                        <div>
+                            <label class="form-label small fw-semibold text-secondary ms-1">Correo electrónico</label>
+                            <input type="email" id="reg-email" class="form-control" placeholder="tu@email.com" required>
+                        </div>
+                        <div>
+                            <label class="form-label small fw-semibold text-secondary ms-1">Contraseña</label>
+                            <input type="password" id="reg-password" class="form-control" placeholder="Crea una contraseña" required>
+                        </div>
+                        <div id="register-message" class="alert p-2 small text-center d-none"></div>
+                        <button type="submit" class="btn btn-indigo w-100 shadow mt-2">Registrar Usuario</button>
+                    </form>
                 </div>
 
-                <div id="login-error" class="alert alert-danger p-2 small text-center d-none"></div>
-
-                <button type="submit" class="btn btn-indigo w-100 shadow">Entrar</button>
-            </form>
+            </div>
         </div>
     </div>
 
