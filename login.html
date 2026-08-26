@@ -58,7 +58,7 @@
             <div class="text-center mb-4">
                 <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-semibold mb-2">Red de Alerta</span>
                 <h2 class="fw-bold text-dark mb-1">Contacto de Emergencia</h2>
-                <p class="text-muted small">Datos de la persona a notificar vía Telegram / Alerta</p>
+                <p class="text-muted small">Datos de la persona a notificar en caso de alerta</p>
             </div>
 
             <form id="emergency-contact-form" class="d-flex flex-column gap-3">
@@ -83,15 +83,9 @@
                     <input type="tel" id="contact-phone" class="form-control" placeholder="Ej. 521877XXXXXXX" required>
                 </div>
 
-                <div>
-                    <label class="form-label small fw-semibold text-secondary ms-1">ID de Chat de Telegram</label>
-                    <input type="text" id="contact-telegram" class="form-control" placeholder="Ej. 8749748612" required>
-                    <div class="form-text ms-1 text-muted" style="font-size: 0.75rem;">Para recepción inmediata de alertas LUMI.</div>
-                </div>
-
                 <!-- Mensaje de confirmación -->
                 <div id="save-status" class="alert alert-success-custom p-3 text-center d-none">
-                    ✓ Guardado correctamente
+                    ✓ Guardado
                 </div>
 
                 <button type="submit" class="btn btn-indigo w-100 shadow mt-2">
