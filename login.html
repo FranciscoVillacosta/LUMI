@@ -3,91 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumi - Acceso</title>
+    <title>Lumi - Contacto de Emergencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { 
             font-family: 'Inter', sans-serif; 
             background: radial-gradient(circle at 50% 50%, #e0e7ff 0%, #ffffff 100%); 
+            min-height: 100vh;
         }
         .glass { 
-            background: rgba(255, 255, 255, 0.7); 
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(255, 255, 255, 0.3); 
+            background: rgba(255, 255, 255, 0.75); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
             border-radius: 2rem; 
         }
-        .form-control { padding: 0.8rem 1.25rem; border-radius: 1rem; border-color: #f1f3f5; }
-        .form-control:focus { border-color: #6366f1; box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25); }
-        .btn-indigo { background-color: #4f46e5; color: white; padding: 0.8rem; border-radius: 1rem; font-weight: 700; border: none; }
-        .btn-indigo:hover { background-color: #4338ca; color: white; }
-        .nav-pills .nav-link.active { background-color: #4f46e5 !important; }
-        .nav-link { color: #4f46e5; font-weight: 600; }
+        .form-control, .form-select { 
+            padding: 0.8rem 1.25rem; 
+            border-radius: 1rem; 
+            border-color: #e2e8f0; 
+        }
+        .form-control:focus, .form-select:focus { 
+            border-color: #6366f1; 
+            box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25); 
+        }
+        .btn-indigo { 
+            background-color: #4f46e5; 
+            color: white; 
+            padding: 0.85rem; 
+            border-radius: 1rem; 
+            font-weight: 700; 
+            border: none; 
+            transition: all 0.2s ease;
+        }
+        .btn-indigo:hover { 
+            background-color: #4338ca; 
+            color: white; 
+            transform: translateY(-1px);
+        }
+        .alert-success-custom {
+            background-color: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            border-radius: 1rem;
+            font-weight: 600;
+        }
     </style>
 </head>
-<body class="min-vh-screen d-flex align-items-center justify-content-center p-4">
+<body class="d-flex align-items-center justify-content-center p-4">
 
-    <div class="w-100" style="max-width: 450px;">
-        
-        <ul class="nav nav-pills nav-justified mb-4 bg-white p-2 rounded-pill shadow-sm" id="pills-tab" role="tablist">
-            <li class="nav-item">
-               <button><a href"usernew.html>Entrar</a></button>
-            </li>
-            <li class="nav-item">
-                <button class="nav-link rounded-pill" id="tab-registro" data-bs-toggle="pill" data-bs-target="#pills-registro" type="button" role="tab">Registrarse</button>
-            </li>
-        </ul>
-
+    <div class="w-100" style="max-width: 480px;">
         <div class="glass p-4 p-sm-5 shadow-lg">
-            <div class="tab-content" id="pills-tabContent">
-                
-                <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold text-dark">Iniciar Sesión</h2>
-                        <p class="text-muted small">Ingresa a tu cuenta de Lumi</p>
-                    </div>
-                    <form id="login-form" class="d-flex flex-column gap-3">
-                        <div>
-                            <label class="form-label small fw-semibold text-secondary ms-1">Correo electrónico</label>
-                            <input type="email" id="login-email" class="form-control" placeholder="tu@email.com" required>
-                        </div>
-                        <div>
-                            <label class="form-label small fw-semibold text-secondary ms-1">Contraseña</label>
-                            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
-                        </div>
-                        <div id="login-error" class="alert alert-danger p-2 small text-center d-none"></div>
-                        <button><a href"usernew.html>Entrar</a></button>
-                    </form>
-                </div>
-
-                <div class="tab-pane fade" id="pills-registro" role="tabpanel">
-                    <div class="text-center mb-4">
-                        <h2 class="fw-bold text-dark">Crear Cuenta</h2>
-                        <p class="text-muted small">Regístrate en la base de datos</p>
-                    </div>
-                    <form id="register-form" class="d-flex flex-column gap-3">
-                        <div>
-                            <label class="form-label small fw-semibold text-secondary ms-1">Nombre Completo</label>
-                            <input type="text" id="reg-name" class="form-control" placeholder="Ej. Franco" required>
-                        </div>
-                        <div>
-                            <label class="form-label small fw-semibold text-secondary ms-1">Correo electrónico</label>
-                            <input type="email" id="reg-email" class="form-control" placeholder="tu@email.com" required>
-                        </div>
-                        <div>
-                            <label class="form-label small fw-semibold text-secondary ms-1">Contraseña</label>
-                            <input type="password" id="reg-password" class="form-control" placeholder="Crea una contraseña" required>
-                        </div>
-                        <div id="register-message" class="alert p-2 small text-center d-none"></div>
-                        <button type="submit" class="btn btn-indigo w-100 shadow mt-2">Registrar Usuario</button>
-                    </form>
-                </div>
-
+            
+            <div class="text-center mb-4">
+                <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-semibold mb-2">Red de Alerta</span>
+                <h2 class="fw-bold text-dark mb-1">Contacto de Emergencia</h2>
+                <p class="text-muted small">Datos de la persona a notificar vía Telegram / Alerta</p>
             </div>
+
+            <form id="emergency-contact-form" class="d-flex flex-column gap-3">
+                <div>
+                    <label class="form-label small fw-semibold text-secondary ms-1">Nombre Completo del Contacto</label>
+                    <input type="text" id="contact-name" class="form-control" placeholder="Ej. Dr. Martínez / Familiar" required>
+                </div>
+
+                <div>
+                    <label class="form-label small fw-semibold text-secondary ms-1">Parentesco o Rol</label>
+                    <select id="contact-relation" class="form-select" required>
+                        <option value="" disabled selected>Selecciona una opción</option>
+                        <option value="Familiar">Familiar directo</option>
+                        <option value="Médico">Médico de cabecera</option>
+                        <option value="Cuidador">Cuidador / Enfermero(a)</option>
+                        <option value="Tutor">Tutor / Responsable</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="form-label small fw-semibold text-secondary ms-1">Teléfono Móvil (WhatsApp / Llamadas)</label>
+                    <input type="tel" id="contact-phone" class="form-control" placeholder="Ej. 521877XXXXXXX" required>
+                </div>
+
+                <div>
+                    <label class="form-label small fw-semibold text-secondary ms-1">ID de Chat de Telegram</label>
+                    <input type="text" id="contact-telegram" class="form-control" placeholder="Ej. 8749748612" required>
+                    <div class="form-text ms-1 text-muted" style="font-size: 0.75rem;">Para recepción inmediata de alertas LUMI.</div>
+                </div>
+
+                <!-- Mensaje de confirmación -->
+                <div id="save-status" class="alert alert-success-custom p-3 text-center d-none">
+                    ✓ Guardado correctamente
+                </div>
+
+                <button type="submit" class="btn btn-indigo w-100 shadow mt-2">
+                    Guardar Contacto
+                </button>
+            </form>
+
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.getElementById('emergency-contact-form');
+        const saveStatus = document.getElementById('save-status');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Muestra el mensaje de Guardado
+            saveStatus.classList.remove('d-none');
+
+            // Oculta el mensaje automáticamente tras 4 segundos
+            setTimeout(() => {
+                saveStatus.classList.add('d-none');
+            }, 4000);
+        });
+    </script>
     <script type="module" src="app.js"></script>
 </body>
 </html>
