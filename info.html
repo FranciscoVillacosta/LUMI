@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto Lumi | Robótica Asistencial e IoT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #f59e0b;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --bg-light: #f8fafc;
+      --white: #ffffff;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-light);
+      line-height: 1.6;
+    }
+
+    /* Contenedor */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero Section */
+    header.hero {
+      background: linear-gradient(135deg, #075985 0%, #0369a1 50%, #0284c7 100%);
+      color: var(--white);
+      padding: 80px 0 100px;
+      text-align: center;
+      clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .hero .slogan {
+      font-size: 1.4rem;
+      font-weight: 300;
+      opacity: 0.95;
+      margin-bottom: 24px;
+      color: #bae6fd;
+    }
+
+    .hero .description {
+      max-width: 720px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+      color: #f0f9ff;
+    }
+
+    /* Secciones */
+    section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    /* Grilla de Sensores y Funciones */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #e2e8f0;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: #cbd5e1;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .card .sensor-tag {
+      display: inline-block;
+      background: #f1f5f9;
+      color: var(--primary-dark);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Beneficios */
+    .benefits-wrapper {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #e2e8f0;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .benefit-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .check-icon {
+      background: #dcfce7;
+      color: #16a34a;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .benefit-text h4 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .benefit-text p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+
+    footer h3 {
+      color: var(--white);
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    footer p.inst {
+      color: #cbd5e1;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+
+    footer .copyright {
+      border-top: 1px solid #334155;
+      padding-top: 24px;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.6rem; }
+      .hero .slogan { font-size: 1.2rem; }
+      .benefits-wrapper { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Encabezado / Hero -->
+  <header class="hero">
+    <div class="container">
+      <div class="badge">Robótica Asistencial & IoT</div>
+      <h1>Lumi</h1>
+      <p class="slogan">“Tecnología para cuidar, luz para acompañar”</p>
+      <p class="description">
+        Asistente inteligente diseñado para apoyar en la supervisión y acompañamiento de adultos mayores y personas que requieren atención constante, identificando factores de riesgo en el hogar sin sustituir la calidez humana.
+      </p>
+    </div>
+  </header>
+
+  <!-- Funciones y Sensores -->
+  <section id="funciones">
+    <div class="container">
+      <div class="section-title">
+        <h2>Arquitectura y Funciones</h2>
+        <p>Integración de sensores especializados para monitoreo ambiental y biomédico en tiempo real.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon">👤</div>
+          <h3>Detección de Presencia</h3>
+          <span class="sensor-tag">Sensor LD2410</span>
+          <p>Radar de ondas milimétricas de alta precisión capaz de detectar personas tanto en reposo como en movimiento dentro del área.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🔥</div>
+          <h3>Detección de Gases</h3>
+          <span class="sensor-tag">Sensor MQ-5</span>
+          <p>Supervisión ambiental continua para identificar posibles fugas de gas LP, gas natural o metano antes de que representen peligro.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">⚠️</div>
+          <h3>Movimiento e Inclinación</h3>
+          <span class="sensor-tag">Sensor MPU6050</span>
+          <p>Acelerómetro y giroscopio para identificar caídas, posturas anómalas o patrones de movimiento que indiquen una emergencia.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">❤️</div>
+          <h3>Monitoreo Biomédico</h3>
+          <span class="sensor-tag">Sensor MAX30102</span>
+          <p>Registro periódico y no invasivo de signos vitales: saturación de oxígeno en sangre (SpO₂) y frecuencia cardiaca (BPM).</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🧭</div>
+          <h3>Navegación Segura</h3>
+          <span class="sensor-tag">Detección de Obstáculos</span>
+          <p>Sensores perimetrales que garantizan un desplazamiento seguro y autónomo por el hogar, evitando colisiones.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📲</div>
+          <h3>Alertas Remotas</h3>
+          <span class="sensor-tag">Notificaciones Inmediatas</span>
+          <p>Canal de comunicación instantáneo para notificar a familiares o cuidadores ante anomalías o eventos críticos.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Plataforma Web</h3>
+          <span class="sensor-tag">Dashboard Central</span>
+          <p>Panel web para consultar bitácoras de eventos, gráficas históricas de signos vitales y estado en tiempo real del robot.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>Interacción Asistencial</h3>
+          <span class="sensor-tag">Comunicación Inteligente</span>
+          <p>Diseño enfocado en la usabilidad del adulto mayor para facilitar el acompañamiento activo y la interacción amigable.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beneficios -->
+  <section id="beneficios" style="background-color: #f1f5f9;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Beneficios Principales</h2>
+        <p>Una solución integral pensada tanto para el usuario como para su red de apoyo.</p>
+      </div>
+
+      <div class="benefits-wrapper">
+        <div class="benefit-item">
+          <div class="check-icon">✓</div>
+          <div class="benefit-text">
+            <h4>Mayor tranquilidad familiar</h4>
+            <p>Los cuidadores y familiares se mantienen informados en todo momento sobre el bienestar del usuario, incluso a la distancia.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="check-icon">✓</div>
+          <div class="benefit-text">
+            <h4>Prevención activa de accidentes</h4>
+            <p>Supervisión simultánea de variables críticas como obstáculos en el camino, movimientos bruscos o fugas inadvertidas de gas.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="check-icon">✓</div>
+          <div class="benefit-text">
+            <h4>Seguimiento continuo de la salud</h4>
+            <p>Facilita un registro no invasivo y constante de métricas biomédicas básicas sin necesidad de traslados.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="check-icon">✓</div>
+          <div class="benefit-text">
+            <h4>Información accesible y centralizada</h4>
+            <p>Métricas y eventos organizados en una plataforma accesible desde cualquier navegador web o dispositivo móvil.</p>
+          </div>
+        </div>
+
+        <div class="benefit-item">
+          <div class="check-icon">✓</div>
+          <div class="benefit-text">
+            <h4>Asistencia tecnológica complementaria</h4>
+            <p>Un soporte tecnológico confiable diseñado para fortalecer la autonomía del adulto mayor sin reemplazar la atención médica o familiar.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pie de Página / Contacto Institucional -->
+  <footer>
+    <div class="container">
+      <h3>Proyecto Lumi – Robótica Asistencial</h3>
+      <p class="inst">Instituto Tecnológico Superior de Ciudad Acuña (ITSA) • TecNM Campus Acuña</p>
+      <p style="max-width: 500px; margin: 0 auto; font-size: 0.95rem;">
+        Desarrollo tecnológico orientado a la creación de entornos conectados, seguros y dignos para personas que requieren atención constante.
+      </p>
+
+      <div class="copyright">
+        &copy; 2026 Proyecto Lumi. Todos los derechos reservados.
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
